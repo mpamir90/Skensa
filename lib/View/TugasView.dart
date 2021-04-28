@@ -11,8 +11,8 @@ class TugasView extends StatelessWidget {
       appBar: AppBar(
         title: Text("Pilih Mata Pelajaran"),
         actions: [
-          BlocBuilder<TugassiswaBloc, TugassiswaView>(
-            child: IconButton(
+          BlocBuilder<TugassiswaBloc, TugassiswaState>(
+            builder: (context, state) => IconButton(
               icon: Icon(Icons.refresh),
               onPressed: () {},
             ),
