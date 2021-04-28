@@ -9,9 +9,6 @@ class MataPelajaranGuru extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var newFilter = colection.groupBy(
-        guru["Mengajar"], (obj) => obj["Nama Mata Pelajaran"]);
-    print(newFilter.toString());
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
@@ -24,30 +21,35 @@ class MataPelajaranGuru extends StatelessWidget {
         ],
         centerTitle: true,
       ),
-      body: Container(
-          child: ListView.builder(
-        itemCount: (guru["Mengajar"] as List).length,
-        itemBuilder: (context, i) => GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TugasGuruView(
-                        guru["Mengajar"][i]["Nama Mata Pelajaran"], guru)));
-          },
-          child: Card(
-            child: ListTile(
-              title: Text(guru["Mengajar"][i]["Nama Mata Pelajaran"]),
-              subtitle:
-                  Text("Kelas: " + guru["Mengajar"][i]["Kelas"]["Nama Kelas"]),
-              leading: Icon(
-                Icons.library_books,
-                size: 40,
+      body: (guru["Mengajar"] == null)
+          ? Center(
+              child: Text("Anda Tidak Mengajar"),
+            )
+          : Container(
+              child: ListView.builder(
+              itemCount: (guru["Mengajar"] as List).length,
+              itemBuilder: (context, i) => GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TugasGuruView(
+                              guru["Mengajar"][i]["Nama Mata Pelajaran"],
+                              guru)));
+                },
+                child: Card(
+                  child: ListTile(
+                    title: Text(guru["Mengajar"][i]["Nama Mata Pelajaran"]),
+                    subtitle: Text(
+                        "Kelas: " + guru["Mengajar"][i]["Kelas"]["Nama Kelas"]),
+                    leading: Icon(
+                      Icons.library_books,
+                      size: 40,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-      )),
+            )),
     );
   }
 }
